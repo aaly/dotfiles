@@ -1,0 +1,21 @@
+#refreshes the packages of the distory speicified by one parmeter
+refreshpkgs() {
+  local package_file="$HOME/.packages.$1"
+
+  if [[ ! -f "$package_file" ]]; then
+    echo "Error: Package file '$package_file' not found." >&2
+    return 1
+  fi
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    pkgname=$(echo "$line" | awk '{print $1}') 
+
+    # Check if package is already installed
+    if yay -Q "$pkgname" &> /dev/null; then
+      echo "Skipping: $pkgname (already installed)"
+    else
+      echo "Installing: $pkgname"
+      yay -S --noconfirm "$pkgname" || return 1
+    fi
+  done < "$package_file"
+}
