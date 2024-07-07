@@ -13,7 +13,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable VIM help for hotkeys widget when client with matching name is opened:
 require("awful.hotkeys_popup.keys.vim")
 local vicious = require("vicious")
-local obvious = require("obvious")
+-- local obvious = require("obvious")
 
 -- {{ Help functions
 local set_opacity = function(client, value)
@@ -55,6 +55,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+beautiful.useless_gap = 10
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -501,6 +502,7 @@ awful.rules.rules = {
     { rule = { },
       properties = { --border_width = beautiful.border_width,
         	     border_width = 0,
+        	     useless_gap=10,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
 		     size_hints_honor = false,
